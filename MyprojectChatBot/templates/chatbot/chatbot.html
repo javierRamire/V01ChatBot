@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        /* Estilos CSS para la burbuja de chat */
+        #chat-container {
+            position: fixed;
+            bottom: 50%;
+            right: 20px;
+            z-index: 1000;
+        }
+        .chat-bubble {
+            background-color: #691c32;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .chat-window {
+            display: none;
+            position: fixed;
+            bottom: 57%;
+            right: 20px;
+            width: 300px;
+            border: 1px solid #691c32;
+            border-radius: 10px;
+            background-color: #fff;
+            z-index: 1000;
+        }
+        .chat-header {
+            background-color: #691c32;
+            color: white;
+            padding: 10px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .chat-body {
+            padding: 10px;
+            overflow-y: auto;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .user-message {
+            align-self: flex-start;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 5px 0;
+        }
+        
+        .bot-message {
+            align-self: flex-end;
+            background-color: #691c32;
+            color: white;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 5px 0;
+        }
+        .chat-footer {
+            padding: 10px;
+            border-top: 1px solid #ccc;
+        }
+        .opcion {
+            background-color: #691c32;
+            color: #fff;
+            border: none;
+            padding: 2px 6px;
+            font-size: 13px;
+            cursor: pointer;
+            border-radius: 6px; 
+            transition: background-color 0.3s ease; /* Efecto de transición al pasar el cursor */
+        }
+        .opcion:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <div class="chat-bubble" id="chat-bubble">
+            <span>Dudas?</span>
+        </div>
+        <div class="chat-window" id="chat-window">
+            <div class="chat-header">
+                <span>Chatbot</span>
+            </div>
+            <div class="chat-body" id="chat-body">
+                <!-- Aquí se mostrarán los mensajes del chat --> 
+            </div>
+            <div class="chat-footer">
+                <input type="text" id="user-input" placeholder="Escribe tu mensaje aquí...">
+                <button id="send-button">Enviar</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>        
+        
+        $(document).ready(function() {
+            var chatBubble = document.getElementById('chat-bubble');
+            var chatWindow = document.getElementById('chat-window');
+        
+            // Función para desplegar la ventana 
+            chatBubble.addEventListener('click', function() {
+                if (chatWindow.style.display === 'none' || chatWindow.style.display === '') {
+                    chatWindow.style.display = 'block';
+                    Saludo("Soy el Financito. Estoy aquí para resolver tus consultas y ayudarte con cualquier problema que tengas.");
+                } else {
+                    chatWindow.style.display = 'none';
+                }
+            });
+        
+            $('#user-input').keypress(function(event) {
+                if (event.which === 13) { 
+                    event.preventDefault(); 
+                    var userInput = $('#user-input').val();
+                    enviarPregunta(userInput);
+                    $('#user-input').val('');
+                }
+            });
+
+            function Saludo(pregunta) {
+                const chatOutput = document.getElementById('chat-body');
+                chatOutput.innerHTML += `<p class="bot-message"><strong>Chatbot:</strong> ${pregunta}</p>`;
+                const opcionesHTML = `<button class="opcion">UsuarioSiaf</button>
+                                    <button class="opcion">Dudas</button>
+                                    <button class="opcion">Formatos</button>`;
+                chatOutput.innerHTML += opcionesHTML;
+                
+                EventoOpcion();
+                scrollChatToBottom(); 
+            }
+
+        
+            // función para manejar la selección del usuario
+            function seleccionarOpcion(opcion) {
+                const chatOutput = document.getElementById('chat-body');
+                const botones = document.getElementsByClassName('opcion');
+                for (let i = 0; i < botones.length; i++) { botones[i].style.display = 'none'; }
+               enviarPregunta(opcion);
+            }
+
+            function EventoOpcion(){
+                const botones = document.getElementsByClassName('opcion');
+                for (let i = 0; i < botones.length; i++) {
+                    botones[i].addEventListener('click', eventoClickBoton);
+                }
+            }
+
+            function eventoClickBoton(event) {
+                seleccionarOpcion(event.target.innerText);
+            }
+        
+            // función para enviar las preguntas del usuario
+            function enviarPregunta(pregunta) {
+                const chatOutput = document.getElementById('chat-body');
+                chatOutput.innerHTML += `<p class="user-message"><strong>Tú:</strong> ${pregunta}</p>`;
+                fetch(`/chatbot/?message=${encodeURIComponent(pregunta)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        chatOutput.innerHTML += `<p class="bot-message"><strong>Chatbot:</strong> ${data.response}</p>`;
+                        if (data.opciones) {
+                            const opcionesHTML = data.opciones.map(opcion => `<button class="opcion">${opcion}</button>`).join('');
+                            chatOutput.innerHTML += opcionesHTML;
+                            EventoOpcion();
+                        }
+                        if (data.referencias){
+                            chatOutput.innerHTML += `<a href="${data.referencias}" target="_blank">Enlace</a>`;
+                        }
+                        scrollChatToBottom();
+                    });
+            }
+
+            function scrollChatToBottom() {
+                var chatBody = document.getElementById('chat-body');
+                chatBody.lastElementChild.scrollIntoView();
+            }       
+
+            $('#send-button').click(function() {
+                var userInput = $('#user-input').val();
+                enviarPregunta(userInput);
+                $('#user-input').val('');
+            });
+
+        });
+        
+
+    </script>
+</body>
+</html>
+

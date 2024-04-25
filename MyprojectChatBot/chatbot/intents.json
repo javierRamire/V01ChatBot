@@ -1,0 +1,240 @@
+{
+    "intents": [
+      {
+        "tag": "saludo",
+        "patterns": ["Hola", "¿Qué tal?", "Buenos días", "Hola, ¿cómo estás?"],
+        "responses": ["¡Hola! ¿En qué puedo ayudarte?", "Hola, ¿cómo estás?", "¡Buenos días! ¿En qué puedo ayudarte?"]
+      },
+      {
+        "tag": "despedida",
+        "patterns": ["Adiós", "Hasta luego", "Nos vemos", "Chao"],
+        "responses": ["¡Hasta luego! Que tengas un buen día.", "Adiós, ¡vuelve pronto!", "Nos vemos. ¡Que te vaya bien!", "¡Chao!"]
+      },
+      {
+        "tag": "Usuarios",
+        "patterns": ["¿Cuál es el proceso de alta/modificación/inactivación?", "¿Cómo puedo dar de alta, modificar o inactivar mi UsuarioSiaf?","¿Cuáles son los pasos para crear mi usuario, actualizar mis datos o desactivar mi perfil Siaf?",
+        "¿Dime cómo habilitar, editar o eliminar mi usuario siaf?","¿Cuáles son los pasos para crear un nuevo usuario, modificar mi perfil o inhabilitar una cuenta existente?",
+        "¿Qué debo hacer para dar de alta un usuario, cambiar mis credenciales o suspender una cuenta en el Siaf?",
+        "¿Cómo puedo dar de alta un nuevo usuario?","¿Cuáles son los pasos para modificar mi perfil en el siaf?","¿Qué debo hacer para inhabilitar un usuario?",
+        "¿Cómo puedo actualizar mis datos de usaurio?","¿Dime cómo habilitar o desactivar mi usuario?"],
+        "responses": ["primer paso descarga el formato en ", "mi idea la verdad"],
+        "context": ["alta_modificacion_inactivacion"]
+      },
+      {
+        "tag": "CodigosUnidad",
+        "patterns": ["¿Dónde se puede consultar los códigos de mi unidad responsable?", "¿En qué lugar encuentro los códigos asignados a mi unidad?", "¿Cómo averiguo los números identificativos de mi unidad en el sistema?", "¿Dime dónde puedo ver los códigos correspondientes a mi área de responsabilidad?"],
+        "responses": ["El tiempo de entrega estándar es de 3-5 días hábiles.", "Ofrecemos envío urgente en 24 horas por un costo adicional."],
+        "context": ["consultar_codigos"]
+      },
+      {
+        "tag": "CodigosCentroCostos",
+        "patterns": ["¿Dónde se puede consultar los códigos de mi centro de costos responsable?", "¿Dónde encuentro los códigos asignados a mi centro de costos?", "¿Cómo puedo acceder a los códigos de los centros de costo?", "Existe una lista centralizada de códigos de centros de costo", "¿En qué plataforma o sistema puedo verificar los códigos de mi área de responsabilidad?"],
+        "responses": ["El tiempo de entrega estándar es de 3-5 días hábiles.", "Ofrecemos envío urgente en 24 horas por un costo adicional."],
+        "context": ["consultar_codigos"]
+      },
+      {
+        "tag": "Autorizador",
+        "patterns": ["¿Cualquier usuario puede ser autorizador institución?", "Quiénes pueden ser autorizadores en nuestra organización?", "¿Cuáles son los requisitos para ser un autorizador?", "¿Existen restricciones para ser un autorizador?", "¿Cómo se designan los autorizadores en nuestra institución?", "¿Cuál es el proceso para designar a alguien como autorizador en nuestra institución?", "¿Qué criterios se consideran al seleccionar a los autorizadores?", "¿Los autorizadores deben tener algún nivel de jerarquía o experiencia?", "¿Cómo se actualiza la lista de autorizadores en nuestra institución?"],
+        "responses": ["El tiempo de entrega estándar es de 3-5 días hábiles.", "Ofrecemos envío urgente en 24 horas por un costo adicional."],
+        "context": ["autorizadores"]
+      },
+      {
+        "tag": "CorreoUsuario",
+        "patterns": ["¿Cómo modifico la dirección de correo electrónico de un usuario?", "¿Cómo puedo cambiar el correo electrónico de mis usuarios?", "¿Cuál es el procedimiento para cambiar el email de un empleado?", "¿Dónde encuentro la opción para actualizar el correo electrónico de un usuario?", "¿Qué requisitos debo cumplir para cambiar el correo electrónico de un usuario?", "¿Cuál es el procedimiento para modificar la dirección de correo electrónico de un usuario?", "¿Dónde encuentro la opción para cambiar el email de un empleado?", "¿Qué pasos debo seguir para actualizar el correo electrónico de un usuario?", "¿Existen requisitos o autorizaciones para modificar el correo electrónico de un empleado?"],
+        "responses": ["El tiempo de entrega estándar es de 3-5 días hábiles.", "Ofrecemos envío urgente en 24 horas por un costo adicional."],
+        "context": ["modificar_correo"]
+      },
+      {
+        "tag": "FormatoFirmado",
+        "patterns": ["¿Cuándo solicito una inactivación es necesario que el formato venga firmado por el usuario?", "¿Es obligatorio que el usuario firme el formato al solicitar una inactivación?", "¿Cuándo se requiere la firma del usuario al presentar una solicitud de inactivación?", "¿Existe alguna excepción en la que no sea necesario que el usuario firme el formato de inactivación?", "¿Cómo se maneja la firma electrónica en los procesos de inactivación?"],
+        "responses": ["El tiempo de entrega estándar es de 3-5 días hábiles.", "Ofrecemos envío urgente en 24 horas por un costo adicional."],
+        "context": ["firmar_formato"]
+      },
+      {
+        "tag": "DescargaFormato",
+        "patterns": ["¿Dónde puedo obtener los formatos de alta/modificación/inactivación?", "Dónde consigo los documentos para dar de alta, modificar o cancelar registros?", "¿Sabes dónde puedo obtener los formularios para registro, cambios o desactivación?", "¿Cuál es el lugar para descargar los formatos de alta, modificación o baja?", "¿Dónde puedo encontrar los formularios necesarios para iniciar, cambiar o detener procesos?", "¿Tienes información sobre cómo obtener los documentos para alta, modificación o inactivación?", "¿Dónde puedo conseguir los formularios para iniciar, actualizar o finalizar trámites?", "¿Cómo puedo acceder a los formularios para registrar, modificar o eliminar cuentas?", "¿Cuál es el procedimiento para obtener los formatos de alta, modificación o desactivación?", "¿Dónde puedo localizar los documentos para iniciar, alterar o cerrar registros?", "¿Sabes dónde puedo hallar los formularios necesarios para registrar, cambiar o cancelar servicios?"],
+        "responses": ["El tiempo de entrega estándar es de 3-5 días hábiles.", "Ofrecemos envío urgente en 24 horas por un costo adicional."],
+        "context": ["descargar_formatos"]
+      },
+      {
+        "tag": "CorreoSiaf",
+        "patterns": ["¿Cuál es la dirección de correo electrónico para enviar solicitudes de usuario?", "¿Dónde puedo encontrar el correo electrónico al que debo enviar las solicitudes de usuario?", "¿Sabes cuál es el correo electrónico para enviar solicitudes de usuario?", "¿Cuál es la dirección de correo para remitir solicitudes de usuario?", "¿Me podrías indicar el correo al que debo dirigir las solicitudes de usuario?", "¿Cuál es el correo de contacto para enviar las solicitudes de usuario?", "¿Podrías proporcionarme la dirección de correo adecuada para enviar solicitudes de usuario?", "¿Dónde puedo obtener el correo electrónico para enviar mis solicitudes de usuario?", "¿Cuál es el correo al que debo enviar las solicitudes relacionadas con los usuarios?", "¿Podrías decirme a qué dirección de correo debo enviar las solicitudes de usuario?"],
+        "responses": ["El tiempo de entrega estándar es de 3-5 días hábiles.", "Ofrecemos envío urgente en 24 horas por un costo adicional."],
+        "context": ["correo_solicitudes"]
+      },
+      {
+        "tag": "EjercicioAnterior",
+        "patterns": ["¿Es necesario entregar nuevamente el formato si requiero la habilitación de un ejercicio fiscal anterior?", "Si necesito habilitar un ejercicio fiscal anterior, ¿debo presentar nuevamente el formato?", "¿Es obligatorio entregar el formulario nuevamente si quiero habilitar un ejercicio fiscal anterior?", "¿Debo volver a completar el formulario si solicito la habilitación de un ejercicio fiscal previo?", "¿Necesito rellenar de nuevo el formato si quiero habilitar un ejercicio fiscal anterior?", "Si deseo habilitar un ejercicio fiscal anterior, ¿tengo que proporcionar el formulario otra vez?", "¿Se requiere completar nuevamente el formulario si solicito la habilitación de un ejercicio fiscal previo?", "Debo entregar de nuevo el formato si necesito habilitar un ejercicio fiscal anterior?", "¿Es necesario volver a presentar el formulario si quiero habilitar un ejercicio fiscal de años anteriores?", "¿Se necesita entregar una vez más el formulario si estoy solicitando la habilitación de un ejercicio fiscal anterior?", "¿Tengo que volver a enviar el formato si quiero habilitar un ejercicio fiscal anterior?"],
+        "responses": ["El tiempo de entrega estándar es de 3-5 días hábiles.", "Ofrecemos envío urgente en 24 horas por un costo adicional."],
+        "context": ["habilitar_ejercicio_anterior"]
+      },
+      {
+        "tag": "tiposusuarios",
+        "patterns": ["¿Qué tipos de usuario existen en el sistema?", "¿Cuáles son los diferentes tipos de usuarios que están presentes en el sistema?", "¿Qué clasificaciones de usuarios existen en el sistema?", "¿Puedes decirme los distintos tipos de usuarios que el sistema tiene registrados?", "¿Cuáles son las categorías de usuarios que se encuentran en el sistema?", "¿Qué variedades de usuarios están definidas en el sistema?", "¿Me podrías indicar los tipos de usuarios que están disponibles en el sistema?", "¿Cuáles son las diferentes clasificaciones de usuarios que se pueden encontrar en el sistema?", "¿Cuántas clases de usuarios están presentes en el sistema y cuáles son?", "¿Qué clases o grupos de usuarios están incluidos en el sistema?", "¿Cuál es el espectro de usuarios que se pueden encontrar en el sistema y cómo se dividen?"],
+        "responses": ["El tiempo de entrega estándar es de 3-5 días hábiles.", "Ofrecemos envío urgente en 24 horas por un costo adicional."],
+        "context": ["tipos_usuario"]
+      },
+      {
+        "tag": "RequisitosSolicitud",
+        "patterns": ["¿Cuáles son los requisitos para solicitar un nuevo usuario?", "¿Qué documentos necesito para hacer una solicitud de usuario?", "¿Cuál es el proceso para cumplir con los requisitos de solicitud de usuario?", "¿Dónde puedo encontrar información sobre los requisitos para solicitar un usuario nuevo?"],
+        "responses": ["Los requisitos incluyen...", "Puedes consultar los requisitos en nuestra página web."],
+        "context": ["requisitos_solicitud"]
+      },
+      {
+        "tag": "EstadoSolicitud",
+        "patterns": ["¿Cómo puedo verificar el estado de mi solicitud de usuario?", "¿Dónde puedo ver si mi solicitud de usuario ha sido aprobada o rechazada?", "¿Cuál es el proceso para conocer el estado de mi solicitud de usuario?"],
+        "responses": ["Puedes verificar el estado de tu solicitud iniciando sesión en nuestro sistema.", "Te enviaremos una notificación por correo electrónico una vez que se haya procesado tu solicitud."],
+        "context": ["estado_solicitud"]
+      },
+      {
+        "tag": "CancelarSolicitud",
+        "patterns": ["¿Cómo puedo cancelar una solicitud de usuario?", "¿Qué debo hacer si deseo cancelar mi solicitud de usuario?", "¿Cuál es el procedimiento para anular una solicitud de usuario?"],
+        "responses": ["Puedes cancelar tu solicitud enviando un correo electrónico a...", "Para cancelar una solicitud, comunícate con nuestro equipo de soporte."],
+        "context": ["cancelar_solicitud"]
+      },
+      {
+        "tag": "UsuariosDuplicados",
+        "patterns": ["¿Cómo puedo resolver un problema de usuarios duplicados?", "¿Qué debo hacer si encuentro que hay usuarios duplicados en el sistema?", "¿Cuál es el procedimiento para eliminar usuarios duplicados?"],
+        "responses": ["Para resolver problemas de usuarios duplicados, contacta a nuestro equipo de soporte.", "Los usuarios duplicados pueden ser eliminados a través de..."],
+        "context": ["usuarios_duplicados"]
+      },
+      {
+        "tag": "SeguimientoSolicitudes",
+        "patterns": ["¿Dónde puedo hacer seguimiento a mis solicitudes de usuario?", "¿Cómo puedo monitorear el progreso de mis solicitudes de usuario?", "¿Cuál es el proceso para realizar un seguimiento a mis solicitudes de usuario?"],
+        "responses": ["Puedes hacer seguimiento a tus solicitudes iniciando sesión en nuestro portal de usuarios.", "Te enviaremos actualizaciones periódicas sobre el estado de tus solicitudes."],
+        "context": ["seguimiento_solicitudes"]
+      },
+      {
+        "tag": "RechazoSolicitud",
+        "patterns": ["¿Qué debo hacer si mi solicitud de usuario ha sido rechazada?", "¿Cómo puedo proceder si mi solicitud de usuario no ha sido aprobada?", "¿Cuál es el siguiente paso si mi solicitud de usuario ha sido denegada?"],
+        "responses": ["Puedes revisar las razones del rechazo en el correo electrónico que te enviamos.", "Para obtener más información sobre el rechazo, comunícate con nuestro equipo de soporte."],
+        "context": ["rechazo_solicitud"]
+      },
+      {
+        "tag": "RegistroUsuarios",
+        "patterns": ["¿Dónde puedo registrarme como usuario?", "¿Cómo puedo crear una cuenta de usuario?", "¿Cuál es el proceso para registrarme como usuario en el sistema?"],
+        "responses": ["Puedes registrarte como usuario en nuestra página web.", "El proceso de registro se completa en..."],
+        "context": ["registro_usuarios"]
+      },{
+        "tag": "RestablecerContraseña",
+        "patterns": ["¿Cómo puedo restablecer mi contraseña?", "¿Cuál es el procedimiento para recuperar mi contraseña si la olvidé?", "¿Dónde puedo encontrar la opción para restablecer mi contraseña?"],
+        "responses": ["Puedes restablecer tu contraseña utilizando la opción 'Olvidé mi contraseña' en la página de inicio de sesión.", "Contacta al administrador del sistema para obtener ayuda con el restablecimiento de contraseña."],
+        "context": ["restablecer_contraseña"]
+    },
+    {
+        "tag": "SoporteTecnico",
+        "patterns": ["¿Dónde puedo encontrar soporte técnico?", "¿Cómo puedo contactar al equipo de soporte técnico?", "¿Cuál es el procedimiento para obtener ayuda técnica?"],
+        "responses": ["Puedes comunicarte con nuestro equipo de soporte técnico llamando al número de teléfono XXX-XXXX-XXXX.", "El soporte técnico está disponible las 24 horas del día, los 7 días de la semana."],
+        "context": ["soporte_tecnico"]
+    },
+    {
+        "tag": "ProcesoAprobacion",
+        "patterns": ["¿Cuál es el proceso de aprobación de solicitudes de usuario?", "¿Quién es responsable de aprobar las solicitudes de usuario?", "¿Cómo funciona el proceso de revisión y aprobación de nuevas cuentas de usuario?"],
+        "responses": ["Las solicitudes de usuario son revisadas por el departamento de administración antes de ser aprobadas.", "El proceso de aprobación puede variar según el tipo de solicitud y los requisitos específicos."],
+        "context": ["proceso_aprobacion"]
+    },
+    {
+        "tag": "CierreSesion",
+        "patterns": ["¿Cómo cierro sesión en el sistema?", "¿Dónde encuentro la opción para cerrar mi sesión?", "¿Cuál es el procedimiento para salir de mi cuenta de usuario?"],
+        "responses": ["Puedes cerrar sesión haciendo clic en el botón 'Cerrar sesión' en la esquina superior derecha de la pantalla.", "Tu sesión se cerrará automáticamente después de un período de inactividad."],
+        "context": ["cierre_sesion"]
+    },
+    {
+        "tag": "ProcesoInscripcion",
+        "patterns": ["¿Cuál es el proceso de inscripción en el sistema?", "¿Cómo puedo registrarme como nuevo usuario?", "¿Qué pasos debo seguir para completar mi inscripción en el sistema?"],
+        "responses": ["Para inscribirte en el sistema, sigue estos pasos:", "La inscripción en el sistema es un proceso sencillo que consta de varios pasos."],
+        "context": ["proceso_inscripcion"]
+    },
+    {
+        "tag": "RequisitosActualizacion",
+        "patterns": ["¿Cuáles son los requisitos para actualizar mi información de usuario?", "¿Qué documentos necesito para realizar una actualización de mis datos?", "¿Cuál es el procedimiento para cumplir con los requisitos de actualización de información de usuario?"],
+        "responses": ["Para actualizar tu información de usuario, necesitarás proporcionar los siguientes documentos:", "El proceso de actualización de información de usuario varía según la información que desees modificar."],
+        "context": ["requisitos_actualizacion"]
+    },
+    {
+        "tag": "CancelacionCuenta",
+        "patterns": ["¿Cómo puedo cancelar mi cuenta de usuario?", "¿Cuál es el procedimiento para eliminar mi cuenta del sistema?", "¿Dónde encuentro la opción para cancelar mi cuenta?"],
+        "responses": ["Para cancelar tu cuenta de usuario, sigue estos pasos:", "La cancelación de cuentas de usuario debe ser confirmada por el departamento de administración antes de procesarse."],
+        "context": ["cancelacion_cuenta"]
+    },
+    {
+        "tag": "RequisitosActualizacionContraseña",
+        "patterns": ["¿Qué requisitos debo cumplir para actualizar mi contraseña?", "¿Cuál es el proceso para cambiar mi contraseña?", "¿Dónde puedo encontrar la opción para modificar mi contraseña?"],
+        "responses": ["Para actualizar tu contraseña, debes seguir estas pautas:", "El proceso de actualización de contraseña puede variar según la política de seguridad del sistema."],
+        "context": ["requisitos_actualizacion_contraseña"]
+    },
+    {
+        "tag": "PermisosAcceso",
+        "patterns": ["¿Cómo puedo solicitar permisos adicionales de acceso?", "¿Quién puede otorgar permisos de acceso adicionales?", "¿Cuál es el proceso para obtener permisos especiales de acceso al sistema?"],
+        "responses": ["Puedes solicitar permisos adicionales de acceso completando el formulario de solicitud correspondiente.", "La aprobación de permisos adicionales de acceso está sujeta a la revisión del departamento de seguridad del sistema."],
+        "context": ["permisos_acceso"]
+    },
+    {
+        "tag": "ProblemasInicioSesion",
+        "patterns": ["¿Qué debo hacer si tengo problemas para iniciar sesión?", "¿Cómo puedo solucionar problemas de acceso a mi cuenta?", "¿Cuál es el procedimiento para restablecer mi acceso si olvidé mi contraseña?"],
+        "responses": ["Si experimentas problemas para iniciar sesión, sigue estos pasos:", "Para restablecer tu acceso, puedes utilizar la opción 'Olvidé mi contraseña' en la pantalla de inicio de sesión."],
+        "context": ["problemas_inicio_sesion"]
+    },
+    {
+        "tag": "VerificacionIdentidad",
+        "patterns": ["¿Cómo se verifica mi identidad al solicitar cambios en mi cuenta?", "¿Qué métodos de verificación de identidad se utilizan en el sistema?", "¿Cuál es el proceso de verificación de identidad para proteger mi cuenta?"],
+        "responses": ["Para proteger la seguridad de tu cuenta, utilizamos los siguientes métodos de verificación de identidad:", "El proceso de verificación de identidad puede incluir el envío de un código de verificación a tu dirección de correo electrónico registrada o la respuesta a preguntas de seguridad."],
+        "context": ["verificacion_identidad"]
+    },
+    {
+        "tag": "PoliticaPrivacidad",
+        "patterns": ["¿Cuál es la política de privacidad del sistema?", "¿Cómo se protege la privacidad de los usuarios en el sistema?", "¿Qué medidas se toman para garantizar la confidencialidad de la información del usuario?"],
+        "responses": ["Nuestra política de privacidad incluye las siguientes medidas de protección de datos:", "Nos comprometemos a proteger la privacidad y confidencialidad de la información de nuestros usuarios de acuerdo con las leyes de protección de datos aplicables."],
+        "context": ["politica_privacidad"]
+    },
+    {
+        "tag": "PrivacidadDatos",
+        "patterns": ["¿Cómo se protege la privacidad de mis datos personales en el sistema?", "¿Qué medidas se toman para garantizar la confidencialidad de la información del usuario?", "¿Cuál es la política de privacidad del sistema respecto al uso y almacenamiento de datos personales?"],
+        "responses": ["La privacidad de tus datos personales es una prioridad para nosotros.", "Seguimos estrictas políticas de privacidad y cumplimos con las regulaciones de protección de datos para garantizar la seguridad de tu información personal."],
+        "context": ["privacidad_datos"]
+    },
+    {
+        "tag": "SoporteUsuario",
+        "patterns": ["¿Dónde puedo encontrar ayuda si tengo preguntas sobre el funcionamiento del sistema?", "¿Cómo puedo contactar al equipo de soporte si necesito asistencia con el sistema?", "¿Cuál es el procedimiento para recibir soporte técnico o asistencia con problemas relacionados con el sistema?"],
+        "responses": ["Nuestro equipo de soporte está disponible para ayudarte con cualquier pregunta o problema que tengas.", "Puedes ponerte en contacto con nuestro equipo de soporte a través de nuestro sitio web, correo electrónico o por teléfono."],
+        "context": ["soporte_usuario"]
+    },
+    {
+        "tag": "SeguridadAcceso",
+        "patterns": ["¿Qué medidas de seguridad se implementan para proteger el acceso al sistema?", "¿Cómo se protegen las cuentas de usuario contra el acceso no autorizado?", "¿Cuál es el proceso de autenticación utilizado para garantizar la seguridad de las cuentas de usuario?"],
+        "responses": ["Utilizamos diversas medidas de seguridad para proteger el acceso al sistema y las cuentas de usuario.", "Estas medidas incluyen la autenticación de dos factores, el cifrado de datos y la supervisión continua de la actividad de la cuenta."],
+        "context": ["seguridad_acceso"]
+    },
+    {
+        "tag": "RequisitosSeguridad",
+        "patterns": ["¿Cuáles son los requisitos de seguridad que debo cumplir al utilizar el sistema?", "¿Qué reglas o políticas de seguridad debo seguir para proteger mi cuenta y mis datos?", "¿Cuál es la importancia de seguir los requisitos de seguridad establecidos por el sistema?"],
+        "responses": ["Es importante seguir los requisitos de seguridad establecidos por el sistema para proteger tu cuenta y tus datos personales.", "Estos requisitos pueden incluir la creación de contraseñas seguras, la actualización regular de software y la verificación de identidad al iniciar sesión desde ubicaciones nuevas o dispositivos no reconocidos."],
+        "context": ["requisitos_seguridad"]
+    },
+    {
+        "tag": "FuncionalidadesDisponibles",
+        "patterns": ["¿Qué funcionalidades están disponibles en el sistema?", "¿Cuáles son las características principales del sistema y cómo puedo acceder a ellas?", "¿Qué herramientas o funciones puedo utilizar para realizar diferentes tareas en el sistema?"],
+        "responses": ["El sistema ofrece una variedad de funcionalidades diseñadas para facilitar tus tareas diarias.", "Estas funcionalidades incluyen la gestión de usuarios, la generación de informes, la administración de permisos y mucho más."],
+        "context": ["funcionalidades_disponibles"]
+    },
+    {
+        "tag": "ActualizacionesSistema",
+        "patterns": ["¿Cómo se realizan las actualizaciones del sistema?", "¿Con qué frecuencia se realizan las actualizaciones y qué mejoras incluyen?", "¿Cuál es el proceso para instalar las últimas actualizaciones del sistema?"],
+        "responses": ["Las actualizaciones del sistema se realizan periódicamente para mejorar la seguridad y la funcionalidad.", "Estas actualizaciones pueden incluir parches de seguridad, correcciones de errores y nuevas características."],
+        "context": ["actualizaciones_sistema"]
+    },
+    {
+        "tag": "AlmacenamientoDatos",
+        "patterns": ["¿Dónde se almacenan mis datos personales en el sistema?", "¿Cuál es la política de almacenamiento de datos del sistema y quién tiene acceso a mi información?", "¿Cómo se garantiza la seguridad y confidencialidad de mis datos almacenados en el sistema?"],
+        "responses": ["Tus datos personales se almacenan de forma segura en servidores protegidos.", "Solo personal autorizado tiene acceso a tu información y se siguen estrictas medidas de seguridad para protegerla contra accesos no autorizados."],
+        "context": ["almacenamiento_datos"]
+    },
+    {
+        "tag": "PoliticaAcceso",
+        "patterns": ["¿Cuál es la política de acceso al sistema?", "¿Quién puede acceder al sistema y bajo qué circunstancias?", "¿Se aplican restricciones de acceso a ciertas áreas o funciones del sistema?"],
+        "responses": ["El acceso al sistema está restringido a usuarios autorizados.", "Las políticas de acceso están diseñadas para garantizar la seguridad y protección de los datos del sistema y de los usuarios."],
+        "context": ["politica_acceso"]
+    }
+    ]
+  }
+  
