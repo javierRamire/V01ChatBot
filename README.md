@@ -8,3 +8,7 @@ las versiones requeridas para la ejecucíon del proyecto son las siguientes:
 - tensorflow =>2.16.1
 - numpy =>1.26.4
 - scikit-learn =>1.4.2
+
+```cmd
+pip install -r requirements.txt
+```
