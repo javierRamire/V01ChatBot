@@ -1,4 +1,3 @@
-pytthon == 3.12.2
 django == 5.0.4
 nltk ==3.8.1
 spacy == 3.7.4
