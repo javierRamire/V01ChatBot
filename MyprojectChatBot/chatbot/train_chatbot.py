@@ -9,8 +9,6 @@ from keras.optimizers import SGD
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import random
 
-nltk.download('punkt')
-nltk.download('wordnet')
 
 words = []
 classes = []
@@ -19,7 +17,7 @@ ignore_words = ['?', '!']
 
 lemmatizer = WordNetLemmatizer()
 
-data_file = open('intents.json').read()
+data_file = open('intents.json', 'r', encoding='utf-8').read()
 intents = json.loads(data_file)
 
 for intent in intents['intents']:
@@ -38,6 +36,12 @@ words = [lemmatizer.lemmatize(w.lower()) for w in words if w not in ignore_words
 words = sorted(list(set(words)))
 # Sort classes
 classes = sorted(list(set(classes)))
+print(len(documents), "documents")
+print(len(classes), "classes", classes)
+
+print(len(words), "unique lemmatized words", words)
+pickle.dump(words,open('words.pkl','wb'))
+pickle.dump(classes,open('classes.pkl','wb'))
 
 # Create training data
 training = []
@@ -73,6 +77,7 @@ np.random.shuffle(padded_training)
 # Separate features and labels
 train_x = np.array([x for x, _ in padded_training])
 train_y = np.array([y for _, y in padded_training])
+
 
 # Define the model
 model = Sequential()

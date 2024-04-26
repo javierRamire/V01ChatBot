@@ -1,7 +1,7 @@
 import h5py
 
 # Abre el archivo .h5 en modo de lectura
-with h5py.File('chatbot_model_V2.h5', 'r') as archivo:
+with h5py.File('chatbot_model.h5', 'r') as archivo:
     # Itera sobre los elementos del archivo
     print("Datasets dentro del archivo:")
     def listar_datasets(nombre, objeto):
@@ -12,14 +12,14 @@ with h5py.File('chatbot_model_V2.h5', 'r') as archivo:
 
 
 # Abre el archivo .h5 en modo de lectura
-with h5py.File('chatbot_model_V2.h5', 'r') as archivo:
+with h5py.File('chatbot_model.h5', 'r') as archivo:
     # Puedes listar los grupos y datasets dentro del archivo
     print("Grupos y datasets dentro del archivo:")
     for nombre in archivo:
         print(nombre)
 
     # Accede a un dataset específico
-    dataset = archivo['optimizer_weights/sequential_lstm_lstm_cell_recurrent_kernel_velocity']
+    dataset = archivo['model_weights/dense/bias']
 
     # Lee los datos del dataset
     datos = dataset[:]

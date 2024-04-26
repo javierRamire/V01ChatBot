@@ -1,164 +1,83 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-import random
-import spacy
 import nltk
-import numpy as np
-import  string
-import pickle
-from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
-from nltk.corpus import stopwords
-# Create your views here.
+import pickle
+import numpy as np
+from keras.models import load_model
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+import json
+import random
 
-nlp = spacy.load('es_core_news_md')
 def chatbot_page(request):
     return render(request, 'chatbot/chatbot.html')
 
-respuestas = {
-    "Hola": "¡Hola! ¿En qué puedo ayudarte?",
-    "Cómo estás": "Estoy bien, gracias por preguntar.",
-    "Adiós": "¡Hasta luego! Que tengas un buen día.",
-    # Agrega más patrones y respuestas según tus necesidades.
-}    
+# Cargar el modelo y otros datos necesarios
+lemmatizer = WordNetLemmatizer()
+max_length = 361 
+model = load_model('C:/Users/Francisco Amador/mi_proyecto_djangoV2/MyprojectChatBot/chatbot/chatbot_model.h5')
+intents = json.loads(open('C:/Users/Francisco Amador/mi_proyecto_djangoV2/MyprojectChatBot/chatbot/intents.json', encoding='utf-8').read())
+words = pickle.load(open('C:/Users/Francisco Amador/mi_proyecto_djangoV2/MyprojectChatBot/chatbot/words.pkl', 'rb'))
+classes = pickle.load(open('C:/Users/Francisco Amador/mi_proyecto_djangoV2/MyprojectChatBot/chatbot/classes.pkl', 'rb'))
 
-respuestasTop = {
-    "UsuarioSiaf":"En que puedo ayudarte con los usuarios ?", 
-    "Dudas":"Puedes escribir tu pregunta por favor.",
-    "Formatos":" Los formatos los puedes descargar desde ",
-}
+def clean_up_sentence(sentence):
+    # Tokenizar el patrón: dividir las palabras en un array
+    sentence_words = nltk.word_tokenize(sentence)
+    # Lematizar cada palabra: crear una forma corta para la palabra
+    sentence_words = [lemmatizer.lemmatize(word.lower()) for word in sentence_words]
+    return sentence_words
 
-respuestasOpciones = {
-  "Alta":"Es alguno de estos?", 
-  "Baja":"Es Alguno de estos?",
-  "Modificacion":"Es Alguno de estos?",
-  "Otra duda": "Que duda tienes, la puedes escribrir",
-}
+def bow(sentence, words, show_details=True):
+    # Tokenizar el patrón
+    sentence_words = clean_up_sentence(sentence)
+    # Bolsa de palabras: matriz de N palabras, matriz de vocabulario
+    bag = [0]*len(words)
+    for s in sentence_words:
+        for i, w in enumerate(words):
+            if w == s:
+                # Asignar 1 si la palabra actual está en la posición del vocabulario
+                bag[i] = 1
+                if show_details:
+                    print("Encontrado en la bolsa: %s" % w)
+    return np.array(bag)
 
-opciones={
-    "UsuarioSiaf":["Alta", "Baja", "Modificacion","Otra duda"],
-    "Alta":["Formatos","paso a seguir","dudas"],
-    "Baja":["Formatos","paso a seguir","dudas"],
-    "Modificacion":["Formatos","paso a seguir","dudas"],
-}
+def predict_class(sentence, model):
+    # Filtrar las predicciones por debajo de un umbral
+    p = bow(sentence, words, show_details=False)
+    # Ajustar la longitud del patrón de entrada si es necesario
+    p = pad_sequences([p], maxlen=max_length, padding='post')[0]
+    res = model.predict(np.array([p]))[0]
+    ERROR_THRESHOLD = 0.25
+    results = [[i, r] for i, r in enumerate(res) if r > ERROR_THRESHOLD]
+    # Ordenar por la fuerza de la probabilidad
+    results.sort(key=lambda x: x[1], reverse=True)
+    return_list = []
+    for r in results:
+        return_list.append({"intent": classes[r[0]], "probability": str(r[1])})
+    return return_list
 
-referencias={
-    "Formatos":"https://egresos.finanzas-puebla.mx/siaf.html",
-}
+def getResponse(ints, intents):
+    tag = ints[0]['intent']
+    list_of_intents = intents['intents']
+    result = "No response found"  # Asignar un valor predeterminado
+    for i in list_of_intents:
+        if i['tag'] == tag:
+            result = random.choice(i['responses'])
+            break
+    return result
 
-def preproceso_texto(text):
-    tokens = word_tokenize(text, language='spanish')
-    tokens = [word.lower() for word in tokens]
-    
-    table= str.maketrans('','',string.punctuation)
-    tokens = [word.translate(table) for word in tokens]
-    
-    stop_words = set(stopwords.words('spanish'))
-    tokens = [word for word in tokens if word not in stop_words]
+def chatbot_response(text):
+    ints = predict_class(text, model)
+    res = getResponse(ints, intents)
+    return res
 
-    tokens = [word for word in tokens if len(word) > 1]
-    
-    lemmatizer = WordNetLemmatizer()
-    lemmatized_tokens = [lemmatizer.lemmatize(token) for token in tokens]
-
-    return  lemmatized_tokens
- 
-def divide_secuencias(tokens, logitud):
-    secuencia = []
-    for i in range(0, len(tokens)-logitud+1, logitud):
-        secuencias = tokens[i:i + logitud]
-        secuencia.append(secuencias)       
-    return secuencia
-
-def codificacion_one_hot(secuencias_tokens, vocabulario_size):
-    secuencias_codificadas = []
-    for secuencia in secuencias_tokens:
-        secuencia_codificada = []
-        for palabra in secuencia:
-            vector = np.zeros(vocabulario_size)
-            vector[palabra] = 1
-            secuencia_codificada.append(vector)
-        secuencias_codificadas.append(secuencia_codificada)
-    return secuencias_codificadas
-
-
-def chatbot_response(request):
-    user_input = request.GET.get('message')  # Obtén el mensaje del usuario desde la URL
-
-    salida_preproceso = preproceso_texto(user_input)
-    secuencia = divide_secuencias(salida_preproceso,5)
-    
-    # X_train, X_test = train_test_split(secuencia, test_size=0.2, random_state=42)
-    # X_train, X_val = train_test_split(X_train, test_size=0.2, random_state=42)
-
-    # print("Tamaño del conjunto de entrenamiento:", len(X_train))
-    # print("Tamaño del conjunto de validación:", len(X_val))
-    # print("Tamaño del conjunto de prueba:", len(X_test))
-    
-     # Análisis de partes del discurso con spaCy
-    doc = nlp(user_input)
-    pos_tags = [(token.text, token.pos_) for token in doc]
-    lemas_spacy = [token.lemma_ for token in doc]
-    # Extracción de entidades con spaCy
-    entities = [(entity.text, entity.label_) for entity in doc.ents]
-   
-    if user_input in respuestas:
-        response = obtener_respuesta(user_input)
-        return JsonResponse({'response': response})
-   
-    elif user_input in respuestasTop:
-        response = obtener_Top(user_input)
-        opciones = obtener_opciones(user_input)
-        return JsonResponse({'response': response, 'opciones': opciones})
-     
-    elif user_input in respuestasOpciones :
-        response = obtener_respuestaOciones(user_input)
-        opciones = obtener_opciones(user_input)
-        return JsonResponse({'response': response, 'opciones': opciones})
-    
-    elif user_input in referencias:
-        response = obtener_respuesta(user_input)
-        referencia = obtener_referencias(user_input)
-        return JsonResponse({'response': response,'referencias':referencia})
-    
-    else: response= buscar_respuesta(user_input) 
-    return JsonResponse({'response': response})
-
-def obtener_respuesta(mensaje):
-    # Aquí implementaremos la lógica para obtener la respuesta del chatbot.
-    # Usaremos el diccionario de respuestas definido anteriormente.
-    if mensaje in respuestas:
-        return respuestas[mensaje]
-    else:
-        return "Lo siento, no entiendo tu pregunta."
-    
-def obtener_Top(mensaje):
-    if mensaje in respuestasTop:
-        return respuestasTop[mensaje]  
-    else:
-        return "Lo siento, no entiendo tu pregunta."       
-    
-def obtener_respuestaOciones(mensaje):
-    if mensaje in respuestasOpciones:
-        return respuestasOpciones[mensaje]
-    else:
-        return "Lo siento, no entiendo tu pregunta."    
-
-def obtener_opciones(mensaje):
-    if mensaje in opciones:
-        return opciones[mensaje]
-    else: "null"
-    
-def obtener_referencias(mensaje):
-    if mensaje in referencias:
-        return referencias[mensaje]
-    else: "null"       
-
-def buscar_respuesta(mensaje):
-    respuestas = ["Lo siento, no entendí tu pregunta.",
-                  "No tengo información sobre eso en este momento.",
-                  "¡Esa es una excelente pregunta! Permíteme investigar y volveré contigo pronto.",
-                  "No entiendo tu pregunta. ¿Puedes reformularla?",
-                  "Lo siento, no entiendo tu pregunta."]
-    if not mensaje:return "no se ha escrito nada"
-    else: return random.choice(respuestas)
+def chatbot_response_view(request):
+    if request.method == 'GET':
+        message = request.GET.get('message', '')
+        response_text = chatbot_response(message)  # Llama a la función chatbot_response
+        # Codificar la respuesta en UTF-8
+        response_text_utf8 = response_text.encode('utf-8').decode('utf-8')
+        # Crear un diccionario con la respuesta
+        response = {'response': response_text_utf8}
+        # Devolver la respuesta como JSON
+        return JsonResponse(response, json_dumps_params={'ensure_ascii': False})

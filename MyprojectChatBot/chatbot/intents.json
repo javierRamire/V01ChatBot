@@ -3,12 +3,14 @@
       {
         "tag": "saludo",
         "patterns": ["Hola", "¿Qué tal?", "Buenos días", "Hola, ¿cómo estás?"],
-        "responses": ["¡Hola! ¿En qué puedo ayudarte?", "Hola, ¿cómo estás?", "¡Buenos días! ¿En qué puedo ayudarte?"]
+        "responses": ["¡Hola! ¿En qué puedo ayudarte?", "Hola, ¿cómo estás?", "¡Buenos días! ¿En qué puedo ayudarte?"],
+        "context":["Buenos_dias"]
       },
       {
         "tag": "despedida",
         "patterns": ["Adiós", "Hasta luego", "Nos vemos", "Chao"],
-        "responses": ["¡Hasta luego! Que tengas un buen día.", "Adiós, ¡vuelve pronto!", "Nos vemos. ¡Que te vaya bien!", "¡Chao!"]
+        "responses": ["¡Hasta luego! Que tengas un buen día.", "Adiós, ¡vuelve pronto!", "Nos vemos. ¡Que te vaya bien!", "¡Chao!"],
+        "context":["adios"]
       },
       {
         "tag": "Usuarios",
