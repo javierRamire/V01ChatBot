@@ -5,4 +5,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 EXPOSE 8000
 WORKDIR ./MyprojectChatBot
-CMD ["python", "manage.py"]
+CMD ["python", "manage.py", "runserver"]
