@@ -3,7 +3,7 @@
       {
         "tag": "saludo",
         "patterns": ["Hola", "¿Qué tal?", "Buenos días", "Hola, ¿cómo estás?"],
-        "responses": ["¡Hola! ¿En qué puedo ayudarte?", "Hola, ¿cómo estás?", "¡Buenos días! ¿En qué puedo ayudarte?"],
+        "responses": ["¡Hola! ¿En qué puedo ayudarte?", "Hola, ¿cómo estás?", "¡Buenos días! ¿En qué puedo ayudarte?","¡Hola! ¿Cómo va todo?","Buenos días, ¿cómo estás hoy?","Hola, ¿qué hay de nuevo?"],
         "context":["Buenos_dias"]
       },
       {
@@ -19,67 +19,67 @@
         "¿Qué debo hacer para dar de alta un usuario, cambiar mis credenciales o suspender una cuenta en el Siaf?",
         "¿Cómo puedo dar de alta un nuevo usuario?","¿Cuáles son los pasos para modificar mi perfil en el siaf?","¿Qué debo hacer para inhabilitar un usuario?",
         "¿Cómo puedo actualizar mis datos de usaurio?","¿Dime cómo habilitar o desactivar mi usuario?"],
-        "responses": ["primer paso descarga el formato en ", "mi idea la verdad"],
+        "responses": ["primer paso descarga el formato en Portal de Egresos ", "Se envia el formato al correo emitido"],
         "context": ["alta_modificacion_inactivacion"]
       },
       {
         "tag": "CodigosUnidad",
         "patterns": ["¿Dónde se puede consultar los códigos de mi unidad responsable?", "¿En qué lugar encuentro los códigos asignados a mi unidad?", "¿Cómo averiguo los números identificativos de mi unidad en el sistema?", "¿Dime dónde puedo ver los códigos correspondientes a mi área de responsabilidad?"],
-        "responses": ["El tiempo de entrega estándar es de 3-5 días hábiles.", "Ofrecemos envío urgente en 24 horas por un costo adicional."],
+        "responses": ["Los codigos los puedes encontrar en los siguientes lugares.", "Busca tu codigo de unidad responsablen en la pagina de Portal de Egresos."],
         "context": ["consultar_codigos"]
       },
       {
         "tag": "CodigosCentroCostos",
         "patterns": ["¿Dónde se puede consultar los códigos de mi centro de costos responsable?", "¿Dónde encuentro los códigos asignados a mi centro de costos?", "¿Cómo puedo acceder a los códigos de los centros de costo?", "Existe una lista centralizada de códigos de centros de costo", "¿En qué plataforma o sistema puedo verificar los códigos de mi área de responsabilidad?"],
-        "responses": ["El tiempo de entrega estándar es de 3-5 días hábiles.", "Ofrecemos envío urgente en 24 horas por un costo adicional."],
+        "responses": ["Puedes encontrar los codigos de centros de costos en Portal de egresos", "Busca tu codigo de centro de costos responsablen en la pagina de Portal de Egresos."],
         "context": ["consultar_codigos"]
       },
       {
         "tag": "Autorizador",
         "patterns": ["¿Cualquier usuario puede ser autorizador institución?", "Quiénes pueden ser autorizadores en nuestra organización?", "¿Cuáles son los requisitos para ser un autorizador?", "¿Existen restricciones para ser un autorizador?", "¿Cómo se designan los autorizadores en nuestra institución?", "¿Cuál es el proceso para designar a alguien como autorizador en nuestra institución?", "¿Qué criterios se consideran al seleccionar a los autorizadores?", "¿Los autorizadores deben tener algún nivel de jerarquía o experiencia?", "¿Cómo se actualiza la lista de autorizadores en nuestra institución?"],
-        "responses": ["El tiempo de entrega estándar es de 3-5 días hábiles.", "Ofrecemos envío urgente en 24 horas por un costo adicional."],
+        "responses": ["No todos pueden serlo, se necesita lo siguiente: ", "Solo  pueden ser autorizadores las personas que son..."],
         "context": ["autorizadores"]
       },
       {
         "tag": "CorreoUsuario",
         "patterns": ["¿Cómo modifico la dirección de correo electrónico de un usuario?", "¿Cómo puedo cambiar el correo electrónico de mis usuarios?", "¿Cuál es el procedimiento para cambiar el email de un empleado?", "¿Dónde encuentro la opción para actualizar el correo electrónico de un usuario?", "¿Qué requisitos debo cumplir para cambiar el correo electrónico de un usuario?", "¿Cuál es el procedimiento para modificar la dirección de correo electrónico de un usuario?", "¿Dónde encuentro la opción para cambiar el email de un empleado?", "¿Qué pasos debo seguir para actualizar el correo electrónico de un usuario?", "¿Existen requisitos o autorizaciones para modificar el correo electrónico de un empleado?"],
-        "responses": ["El tiempo de entrega estándar es de 3-5 días hábiles.", "Ofrecemos envío urgente en 24 horas por un costo adicional."],
+        "responses": ["Para poder cambiar tu correo se tiene que enviar un correo a fdfafas@puebla.gob.mx, solicitando el cambio", "Lo puedes hacer enviando un correo a fdfafas@puebla.gob.mx."],
         "context": ["modificar_correo"]
       },
       {
         "tag": "FormatoFirmado",
         "patterns": ["¿Cuándo solicito una inactivación es necesario que el formato venga firmado por el usuario?", "¿Es obligatorio que el usuario firme el formato al solicitar una inactivación?", "¿Cuándo se requiere la firma del usuario al presentar una solicitud de inactivación?", "¿Existe alguna excepción en la que no sea necesario que el usuario firme el formato de inactivación?", "¿Cómo se maneja la firma electrónica en los procesos de inactivación?"],
-        "responses": ["El tiempo de entrega estándar es de 3-5 días hábiles.", "Ofrecemos envío urgente en 24 horas por un costo adicional."],
+        "responses": ["Si el usuario ya no se encuentra en la institucion no es necesario", "no es necesario si el usuario ya no se encuentra en la institucion"],
         "context": ["firmar_formato"]
       },
       {
         "tag": "DescargaFormato",
         "patterns": ["¿Dónde puedo obtener los formatos de alta/modificación/inactivación?", "Dónde consigo los documentos para dar de alta, modificar o cancelar registros?", "¿Sabes dónde puedo obtener los formularios para registro, cambios o desactivación?", "¿Cuál es el lugar para descargar los formatos de alta, modificación o baja?", "¿Dónde puedo encontrar los formularios necesarios para iniciar, cambiar o detener procesos?", "¿Tienes información sobre cómo obtener los documentos para alta, modificación o inactivación?", "¿Dónde puedo conseguir los formularios para iniciar, actualizar o finalizar trámites?", "¿Cómo puedo acceder a los formularios para registrar, modificar o eliminar cuentas?", "¿Cuál es el procedimiento para obtener los formatos de alta, modificación o desactivación?", "¿Dónde puedo localizar los documentos para iniciar, alterar o cerrar registros?", "¿Sabes dónde puedo hallar los formularios necesarios para registrar, cambiar o cancelar servicios?"],
-        "responses": ["El tiempo de entrega estándar es de 3-5 días hábiles.", "Ofrecemos envío urgente en 24 horas por un costo adicional."],
+        "responses": ["los formatos los puedes obtener desde https://egresos.finanzas-puebla.mx/siaf.html", "Puedes bajar los formatos desde la pagina de portal de egresos https://egresos.finanzas-puebla.mx/siaf.html"],
         "context": ["descargar_formatos"]
       },
       {
         "tag": "CorreoSiaf",
         "patterns": ["¿Cuál es la dirección de correo electrónico para enviar solicitudes de usuario?", "¿Dónde puedo encontrar el correo electrónico al que debo enviar las solicitudes de usuario?", "¿Sabes cuál es el correo electrónico para enviar solicitudes de usuario?", "¿Cuál es la dirección de correo para remitir solicitudes de usuario?", "¿Me podrías indicar el correo al que debo dirigir las solicitudes de usuario?", "¿Cuál es el correo de contacto para enviar las solicitudes de usuario?", "¿Podrías proporcionarme la dirección de correo adecuada para enviar solicitudes de usuario?", "¿Dónde puedo obtener el correo electrónico para enviar mis solicitudes de usuario?", "¿Cuál es el correo al que debo enviar las solicitudes relacionadas con los usuarios?", "¿Podrías decirme a qué dirección de correo debo enviar las solicitudes de usuario?"],
-        "responses": ["El tiempo de entrega estándar es de 3-5 días hábiles.", "Ofrecemos envío urgente en 24 horas por un costo adicional."],
+        "responses": ["el correo es ...", "el correo para enviar usuarios es .."],
         "context": ["correo_solicitudes"]
       },
       {
         "tag": "EjercicioAnterior",
         "patterns": ["¿Es necesario entregar nuevamente el formato si requiero la habilitación de un ejercicio fiscal anterior?", "Si necesito habilitar un ejercicio fiscal anterior, ¿debo presentar nuevamente el formato?", "¿Es obligatorio entregar el formulario nuevamente si quiero habilitar un ejercicio fiscal anterior?", "¿Debo volver a completar el formulario si solicito la habilitación de un ejercicio fiscal previo?", "¿Necesito rellenar de nuevo el formato si quiero habilitar un ejercicio fiscal anterior?", "Si deseo habilitar un ejercicio fiscal anterior, ¿tengo que proporcionar el formulario otra vez?", "¿Se requiere completar nuevamente el formulario si solicito la habilitación de un ejercicio fiscal previo?", "Debo entregar de nuevo el formato si necesito habilitar un ejercicio fiscal anterior?", "¿Es necesario volver a presentar el formulario si quiero habilitar un ejercicio fiscal de años anteriores?", "¿Se necesita entregar una vez más el formulario si estoy solicitando la habilitación de un ejercicio fiscal anterior?", "¿Tengo que volver a enviar el formato si quiero habilitar un ejercicio fiscal anterior?"],
-        "responses": ["El tiempo de entrega estándar es de 3-5 días hábiles.", "Ofrecemos envío urgente en 24 horas por un costo adicional."],
+        "responses": ["El formato se debe enviar al correo     . despues de debera traer a la oficina direccion en formato impreso", "El formato impreso se debera traer a la dirreccion a su vez se debe enviar antes al correo para su validacion"],
         "context": ["habilitar_ejercicio_anterior"]
       },
       {
         "tag": "tiposusuarios",
         "patterns": ["¿Qué tipos de usuario existen en el sistema?", "¿Cuáles son los diferentes tipos de usuarios que están presentes en el sistema?", "¿Qué clasificaciones de usuarios existen en el sistema?", "¿Puedes decirme los distintos tipos de usuarios que el sistema tiene registrados?", "¿Cuáles son las categorías de usuarios que se encuentran en el sistema?", "¿Qué variedades de usuarios están definidas en el sistema?", "¿Me podrías indicar los tipos de usuarios que están disponibles en el sistema?", "¿Cuáles son las diferentes clasificaciones de usuarios que se pueden encontrar en el sistema?", "¿Cuántas clases de usuarios están presentes en el sistema y cuáles son?", "¿Qué clases o grupos de usuarios están incluidos en el sistema?", "¿Cuál es el espectro de usuarios que se pueden encontrar en el sistema y cómo se dividen?"],
-        "responses": ["El tiempo de entrega estándar es de 3-5 días hábiles.", "Ofrecemos envío urgente en 24 horas por un costo adicional."],
+        "responses": ["Capturistas, Autorizadores", "Ofrecemos envío urgente en 24 horas por un costo adicional."],
         "context": ["tipos_usuario"]
       },
       {
         "tag": "RequisitosSolicitud",
         "patterns": ["¿Cuáles son los requisitos para solicitar un nuevo usuario?", "¿Qué documentos necesito para hacer una solicitud de usuario?", "¿Cuál es el proceso para cumplir con los requisitos de solicitud de usuario?", "¿Dónde puedo encontrar información sobre los requisitos para solicitar un usuario nuevo?"],
-        "responses": ["Los requisitos incluyen...", "Puedes consultar los requisitos en nuestra página web."],
+        "responses": ["se debera de enviar un correo con la peticion a ", "se debera enviar la peticion al correo .. con copia a .."],
         "context": ["requisitos_solicitud"]
       },
       {
@@ -236,6 +236,19 @@
         "patterns": ["¿Cuál es la política de acceso al sistema?", "¿Quién puede acceder al sistema y bajo qué circunstancias?", "¿Se aplican restricciones de acceso a ciertas áreas o funciones del sistema?"],
         "responses": ["El acceso al sistema está restringido a usuarios autorizados.", "Las políticas de acceso están diseñadas para garantizar la seguridad y protección de los datos del sistema y de los usuarios."],
         "context": ["politica_acceso"]
+    },
+    {
+      "tag":"UsuarioDuda",
+      "patterns":["UsuarioSiaf"],
+      "responses":["Me puedes decir si es alta, modificacion, baja o otra duda?"],
+      "context":["Usuarios_Siaf"]
+    },
+    {
+      "tag":"NoEntendi",
+      "patterns":["","  "," "],
+      "responses":["puedes repetir tu pregunta.","Lo siento, no entendí tu pregunta.","No tengo información sobre eso en este momento.","¡Esa es una excelente pregunta! Permíteme investigar y volveré contigo pronto.",
+      "No entiendo tu pregunta. ¿Puedes reformularla?","Lo siento, no entiendo tu pregunta."],
+      "context":["SinRespuesta"]
     }
     ]
   }

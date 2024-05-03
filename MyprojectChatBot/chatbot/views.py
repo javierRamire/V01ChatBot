@@ -68,6 +68,7 @@ def getResponse(ints, intents):
 
 def chatbot_response(text):
     ints = predict_class(text, model)
+    print (ints)
     res = getResponse(ints, intents)
     return res
 
@@ -81,3 +82,8 @@ def chatbot_response_view(request):
         response = {'response': response_text_utf8}
         # Devolver la respuesta como JSON
         return JsonResponse(response, json_dumps_params={'ensure_ascii': False})
+    
+    
+    
+def check_status(request):
+    return JsonResponse({'status': 'ok'})
