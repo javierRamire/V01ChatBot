@@ -1,13 +1,21 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.http import HttpResponse
 import nltk
 from nltk.stem import WordNetLemmatizer
 import pickle
 import numpy as np
 from keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+import subprocess
 import json
 import random
+import firebase_admin
+from firebase_admin import credentials,firestore
+
+cred = credentials.Certificate("C:/Users/Francisco Amador/Downloads/chatbotproyectv1-firebase-adminsdk-rjy8r-b02d097d0b.json")
+firebase_admin.initialize_app(cred)
+db = firestore.client()
 
 def chatbot_page(request):
     return render(request, 'chatbot/chatbot.html')
@@ -68,9 +76,16 @@ def getResponse(ints, intents):
 
 def chatbot_response(text):
     ints = predict_class(text, model)
+    intencion = ints[0]["intent"]
+    if not ints:
+        datos = {"tag": "","patterns": text,"response": ""}
+        db.collection("Preguntas").add(datos)
+        return "No entendí la pregunta. Por favor, reformúlala."
+    if "NoEntendi" in intencion:
+        datos = {"tag": intencion,"patterns": text,"response": "No"}
+        db.collection("Preguntas").add(datos)
     print (ints)
-    res = getResponse(ints, intents)
-    return res
+    return getResponse(ints, intents)
 
 def chatbot_response_view(request):
     if request.method == 'GET':
@@ -83,7 +98,42 @@ def chatbot_response_view(request):
         # Devolver la respuesta como JSON
         return JsonResponse(response, json_dumps_params={'ensure_ascii': False})
     
-    
-    
 def check_status(request):
     return JsonResponse({'status': 'ok'})
+
+def consulta_preguntas(request):
+    datos = extraer_datos()
+    return JsonResponse({"datos":datos})
+
+def extraer_datos():
+    consulta = db.collection("Preguntas").where("response", "==", "No").stream()
+    datos = []
+    documentos_id = []
+    for documento in consulta:
+        datos.append(documento.to_dict())
+        documentos_id.append(documento.id)
+    return datos, documentos_id
+
+def descarga_preguntas(request):
+    datos, documentos_id= extraer_datos()
+    datos_json = json.dumps(datos, indent=4)
+    response = HttpResponse(datos_json, content_type='application/json')
+    response['Content-Disposition'] = 'attachment; filename="datos_firestore.json"'
+    actualizar_respuesta(documentos_id)
+    return response
+
+def actualizar_respuesta(documentos_id):
+    batch = db.batch()
+    for doc_id in documentos_id:
+        doc_ref = db.collection("Preguntas").document(doc_id)
+        batch.update(doc_ref, {"response": "Si"})
+    batch.commit()
+    
+def train_chatbot(request):
+    # Aquí puedes agregar cualquier lógica adicional necesaria para el entrenamiento
+    # Luego, ejecuta tu script de entrenamiento
+    try:
+        subprocess.run(['python', 'chatbot/train_chatbot.py'])
+        return JsonResponse({'status': 'success', 'message': 'Training completed successfully'})
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)})    

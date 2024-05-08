@@ -18,7 +18,7 @@
         "¿Dime cómo habilitar, editar o eliminar mi usuario siaf?","¿Cuáles son los pasos para crear un nuevo usuario, modificar mi perfil o inhabilitar una cuenta existente?",
         "¿Qué debo hacer para dar de alta un usuario, cambiar mis credenciales o suspender una cuenta en el Siaf?",
         "¿Cómo puedo dar de alta un nuevo usuario?","¿Cuáles son los pasos para modificar mi perfil en el siaf?","¿Qué debo hacer para inhabilitar un usuario?",
-        "¿Cómo puedo actualizar mis datos de usaurio?","¿Dime cómo habilitar o desactivar mi usuario?"],
+        "¿Cómo puedo actualizar mis datos de usaurio?","¿Dime cómo habilitar o desactivar mi usuario?","alta de usuarios"],
         "responses": ["primer paso descarga el formato en Portal de Egresos ", "Se envia el formato al correo emitido"],
         "context": ["alta_modificacion_inactivacion"]
       },
@@ -71,7 +71,7 @@
         "context": ["habilitar_ejercicio_anterior"]
       },
       {
-        "tag": "tiposusuarios",
+        "tag": "tipousuario",
         "patterns": ["¿Qué tipos de usuario existen en el sistema?", "¿Cuáles son los diferentes tipos de usuarios que están presentes en el sistema?", "¿Qué clasificaciones de usuarios existen en el sistema?", "¿Puedes decirme los distintos tipos de usuarios que el sistema tiene registrados?", "¿Cuáles son las categorías de usuarios que se encuentran en el sistema?", "¿Qué variedades de usuarios están definidas en el sistema?", "¿Me podrías indicar los tipos de usuarios que están disponibles en el sistema?", "¿Cuáles son las diferentes clasificaciones de usuarios que se pueden encontrar en el sistema?", "¿Cuántas clases de usuarios están presentes en el sistema y cuáles son?", "¿Qué clases o grupos de usuarios están incluidos en el sistema?", "¿Cuál es el espectro de usuarios que se pueden encontrar en el sistema y cómo se dividen?"],
         "responses": ["Capturistas, Autorizadores", "Ofrecemos envío urgente en 24 horas por un costo adicional."],
         "context": ["tipos_usuario"]
@@ -114,7 +114,7 @@
       },
       {
         "tag": "RegistroUsuarios",
-        "patterns": ["¿Dónde puedo registrarme como usuario?", "¿Cómo puedo crear una cuenta de usuario?", "¿Cuál es el proceso para registrarme como usuario en el sistema?"],
+        "patterns": ["¿Dónde puedo registrarme como usuario?", "¿Cómo puedo crear una cuenta de usuario?", "¿Cuál es el proceso para registrarme como usuario en el sistema?","alta usuario"],
         "responses": ["Puedes registrarte como usuario en nuestra página web.", "El proceso de registro se completa en..."],
         "context": ["registro_usuarios"]
       },{

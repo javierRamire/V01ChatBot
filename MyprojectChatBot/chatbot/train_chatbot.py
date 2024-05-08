@@ -19,7 +19,7 @@ ignore_words = ['?', '!']
 lemmatizer = WordNetLemmatizer()
 
 # Cargar el archivo JSON que contiene los patrones de las intenciones
-data_file = open('intents.json', 'r', encoding='utf-8').read()
+data_file = open('chatbot/intents.json', 'r', encoding='utf-8').read()
 intents = json.loads(data_file)
 
 # Preprocesamiento de los datos
@@ -45,8 +45,8 @@ print(len(classes), "clases", classes)
 print(len(words), "palabras lematizadas únicas", words)
 
 # Guardar las palabras y clases en archivos pkl
-pickle.dump(words,open('words.pkl','wb'))
-pickle.dump(classes,open('classes.pkl','wb'))
+pickle.dump(words,open('chatbot/words.pkl','wb'))
+pickle.dump(classes,open('chatbot/classes.pkl','wb'))
 
 # Crear datos de entrenamiento
 training = []
@@ -99,6 +99,6 @@ model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy
 hist = model.fit(train_x, train_y, epochs=200, batch_size=5, verbose=1)
 
 # Guardar el modelo
-model.save('chatbot_model.h5', hist)
+model.save('chatbot/chatbot_model.h5', hist)
 print("Modelo creado")
 model.summary()
