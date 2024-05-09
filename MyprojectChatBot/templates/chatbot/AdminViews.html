@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador</title>
+    <style>
+        /* Estilos para el modal */
+        .modal {
+            display: none; /* Ocultar el modal por defecto */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #form-cargar-archivo {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        input[type=file] {
+            display: none;
+        }
+
+        .custom-file-upload {
+            border: 1px solid #ccc;
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+        }
+
+        button[type=submit], .button-download {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+        }
+
+        button[type=submit]:hover, .button-download:hover {
+            background-color: #45a049;
+        }
+        .custom-file-upload {
+            /* Estilos anteriores */
+            /* Añadimos padding para dar espacio al texto */
+            padding-right: 20px;
+        }
+        .file-input {
+            display: inline-block;
+        }
+        .hidden {
+            display: none;
+        }
+        * {
+            box-sizing: border-box;
+          }
+          
+          .menu {
+            float: left;
+            width: 20%;
+            text-align: center;
+          }
+          
+          .menu a {
+            background-color: #e5e5e5;
+            padding: 8px;
+            margin-top: 7px;
+            display: block;
+            width: 100%;
+            color: black;
+          }
+          
+          .main {
+            float: left;
+            width: 60%;
+            padding: 0 20px;
+          }
+          
+          .right {
+            background-color: #e5e5e5;
+            float: left;
+            width: 20%;
+            padding: 15px;
+            margin-top: 7px;
+            text-align: center;
+          }
+          
+          @media only screen and (max-width: 620px) {
+            /* For mobile phones: */
+            .menu, .main, .right {
+              width: 100%;
+            }
+          }
+    </style>
+</head>
+<body style="font-family:Verdana;color:#aaaaaa;">
+
+    <div style="background-color:#e5e5e5;padding:15px;text-align:center;">
+        <h1>Administracion Chat-Bot</h1>
+    </div>
+    
+    <div style="overflow:auto">
+      <div class="menu">
+             <br>
+            <a href="#" id="descarga_doc_intents" onclick="mostrarContenido('Documentos')">Descarga Doc Intents</a>
+            <br>
+            <a href="#" id="descarga_preguntas" onclick="mostrarContenido('Preguntas')">Descarga Preguntas</a>
+            <br>
+            <a href="#" id="actualizar_doc_intents" onclick="mostrarContenido('Actualizar')">Actualizar Doc Intents</a>
+            <br>
+            <a href="#" id="rentrenar_chat" onclick="mostrarContenido('Rentrenar')">Rentrenar Chat</a>
+            <br>
+        </div>
+    
+      <div class="main" style="padding:15px;text-align:center;">
+
+        <div class="DocIntents" id="Documentos" style="display:none;">
+        <h2>Descarga Documento Intents Actual</h2>
+        <p>El archivo Intents es con el que esta entrenado en estos momentos</p>
+        <br><br><br><br>
+        <button class="button-download"><a href="{% url 'descargar_archivo' %}" download style="color: white; text-decoration: none;">Descargar Archivo Actual</a></button>
+        <br><br>
+        </div>
+
+        <div class="Preguntas" id="Preguntas" style="display:none;">
+            <h2>Descargar preguntas de la Base de Datos</h2>
+            <p>Se descarga el archivo .JSon desde la base de datos de google FireBase <br>
+            Por ultimo se actualiza las preguntas para no volver a descargarlas no se podran descargar nuevamente</p>
+            <br><br>
+            <button class="button-download"><a href="{% url 'descarga_datos' %}" download style="color: white; text-decoration: none;">Descargar Preguntas (Json) </a></button>
+            <br><br>
+        </div>
+
+        <div class="Actualizar" id="Actualizar" style="display:none;">
+            <h2>Actualizar Archivo Intents Proyecto</h2>
+            <p>Se debe insertar archivo intents.Json <br>
+            Se reemplazara archivo Json y despues se debe reentrenar.</p>
+            <br><br>
+            <form id="form-cargar-archivo" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="archivo" class="custom-file-upload">Seleccionar Archivo</label>
+                <input type="file" id="archivo" name="archivo" accept=".json" style="display: none;">
+                    <span id="file-name" class="file-input"></span> 
+                    <button type="submit">Cargar Archivo</button>
+            </form>
+            <!-- Modal -->
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p id="mensaje-modal"></p>
+                </div>
+            </div>
+            <br><br>
+             <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p id="mensaje-modal"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="Rentrenar" id="Rentrenar" style="display:none;">
+            <h2>Reentrenamiento del ChatBot</h2>
+            <p>Se reentrenara el ChatBot (Mastercito)<br>
+            Por unos momentos puede fallar las respuestas, recordar actualizar antes el archivo Intents
+            </p>
+            <br><br>
+            <button class="button-download"><a href="{% url 'entrenar_bot' %}" download style="color: white; text-decoration: none;">Reentrenar ChatBot</a></button>
+            <br><br>
+        </div>
+
+      </div>
+    
+      {% comment %} 
+      <div class="right">
+        <h2>Vista</h2>
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+      </div> {% endcomment %}
+
+    </div>
+    <div style="background-color:#e5e5e5;text-align:center;padding:15px;margin-top:7px;position:absolute;bottom:0;width:99%;">© copyright Secretaria_Planeacion y finanzas.com</div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+
+        function mostrarContenido(id) {
+            $('.main > div').hide();
+            $('#' + id).show();
+        }
+
+        $(document).ready(function() {
+
+            $("#archivo").change(function() {
+                var fileName = $(this).val().split('\\').pop();
+                $("#file-name").text("Archivo seleccionado: " + fileName);
+            });
+           
+            $(".close").click(function() {
+                $("#myModal").hide();
+            });
+
+           
+            $("#form-cargar-archivo").submit(function(event) {
+                event.preventDefault(); 
+                
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'cargar_archivo' %}",
+                    data: new FormData(this),
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        $("#mensaje-modal").text(data.mensaje);
+                        $("#myModal").show();
+                    },
+                    error: function(xhr, status, error) {
+                        alert("Error al cargar el archivo: " + xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

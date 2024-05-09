@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 import subprocess
 import json
 import firebase_admin
-from firebase_admin import credentials,firestore
+from firebase_admin import firestore
 import os
 
 db = firestore.client()
@@ -47,15 +47,18 @@ def train_chatbot(request):
 def cargar_archivo(request):
     if request.method == 'POST' and request.FILES.get('archivo'):
         archivo_nuevo = request.FILES['archivo']
-        ruta_archivo = os.path.join('chatbot/', archivo_nuevo.name)
-        with open(ruta_archivo, 'wb+') as destino:
-            for chunk in archivo_nuevo.chunks():
-                destino.write(chunk)
-        return JsonResponse({'mensaje': 'Archivo cargado exitosamente'})
-    return render(request, 'chatbot/cargar_archivo.html')
+        if archivo_nuevo.name.endswith('.json'):
+            ruta_archivo = os.path.join('chatbot/', archivo_nuevo.name)
+            with open(ruta_archivo, 'wb+') as destino:
+                for chunk in archivo_nuevo.chunks():
+                    destino.write(chunk)
+            return JsonResponse({'mensaje': 'Archivo cargado exitosamente'})
+        else:
+            return JsonResponse({'error': 'El archivo debe tener extensión .json'}, status=400)
+    return render(request, 'chatbot/AdminViews.html')
 
 def descargar_archivo(request):
-    with open('chatbot/file.json', 'rb') as archivo:
+    with open('chatbot/intents.json', 'rb') as archivo:
         response = HttpResponse(archivo.read(), content_type='application/json')
         response['Content-Disposition'] = 'attachment; filename="intents.json"'
         return response
