@@ -12,7 +12,7 @@ import firebase_admin
 from firebase_admin import credentials,firestore
 import os
 
-cred = credentials.Certificate("C:/Users/Francisco Amador/Downloads/chatbotproyectv1-firebase-adminsdk-rjy8r-b02d097d0b.json")
+cred = credentials.Certificate("chatbot/chatbotproyectv1-firebase-adminsdk-rjy8r-b02d097d0b.json")
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
@@ -22,10 +22,10 @@ def chatbot_page(request):
 # Cargar el modelo y otros datos necesarios
 lemmatizer = WordNetLemmatizer()
 max_length = 361 
-model = load_model('C:/Users/Francisco Amador/mi_proyecto_djangoV2/MyprojectChatBot/chatbot/chatbot_model.h5')
-intents = json.loads(open('C:/Users/Francisco Amador/mi_proyecto_djangoV2/MyprojectChatBot/chatbot/intents.json', encoding='utf-8').read())
-words = pickle.load(open('C:/Users/Francisco Amador/mi_proyecto_djangoV2/MyprojectChatBot/chatbot/words.pkl', 'rb'))
-classes = pickle.load(open('C:/Users/Francisco Amador/mi_proyecto_djangoV2/MyprojectChatBot/chatbot/classes.pkl', 'rb'))
+model = load_model('chatbot/chatbot_model.h5')
+intents = json.loads(open('chatbot/intents.json', encoding='utf-8').read())
+words = pickle.load(open('chatbot/words.pkl', 'rb'))
+classes = pickle.load(open('chatbot/classes.pkl', 'rb'))
 
 def clean_up_sentence(sentence):
     sentence_words = nltk.word_tokenize(sentence)
