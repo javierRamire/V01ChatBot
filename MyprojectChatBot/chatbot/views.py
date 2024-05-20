@@ -11,8 +11,8 @@ import random
 import firebase_admin
 from firebase_admin import credentials,firestore
 import os
-
-cred = credentials.Certificate("chatbot/chatbotproyectv1-firebase-adminsdk-rjy8r-b02d097d0b.json")
+print(os.getcwd())
+cred = credentials.Certificate(f"{os.getcwd()}/chatbot/chatbotproyectv1-firebase-adminsdk-rjy8r-b02d097d0b.json")
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 

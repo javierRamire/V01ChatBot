@@ -1,0 +1,10 @@
+version: '3'
+services:
+  app_chatbot:
+    image: python:3.12.2
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app
+    command: bash -c 'pip install -r requirements.txt && python -c "import nltk; nltk.download(\"wordnet\"); nltk.download(\"punkt\")" && python MyprojectChatBot/manage.py runserver 0.0.0.0:8000'
+    ports:
+      - 8000:8000
