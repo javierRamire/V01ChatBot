@@ -12,20 +12,20 @@ import firebase_admin
 from firebase_admin import credentials,firestore
 import os
 print(os.getcwd())
-cred = credentials.Certificate(f"{os.getcwd()}/chatbot/chatbotproyectv1-firebase-adminsdk-rjy8r-b02d097d0b.json")
+cred = credentials.Certificate(f"{os.getcwd()}/MyprojectChatBot/chatbot/chatbotproyectv1-firebase-adminsdk-rjy8r-b02d097d0b.json")
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 def chatbot_page(request):
-    return render(request, 'chatbot/chatbot.html')
+    return render(request, f'{os.getcwd()}/MyprojectChatBot/templates/chatbot/chatbot.html')
 
 # Cargar el modelo y otros datos necesarios
 lemmatizer = WordNetLemmatizer()
 max_length = 361 
-model = load_model('chatbot/chatbot_model.h5')
-intents = json.loads(open('chatbot/intents.json', encoding='utf-8').read())
-words = pickle.load(open('chatbot/words.pkl', 'rb'))
-classes = pickle.load(open('chatbot/classes.pkl', 'rb'))
+model = load_model('MyprojectChatBot/chatbot/chatbot_model.h5')
+intents = json.loads(open('MyprojectChatBot/chatbot//intents.json', encoding='utf-8').read())
+words = pickle.load(open('MyprojectChatBot/chatbot//words.pkl', 'rb'))
+classes = pickle.load(open('MyprojectChatBot/chatbot//classes.pkl', 'rb'))
 
 def clean_up_sentence(sentence):
     sentence_words = nltk.word_tokenize(sentence)
